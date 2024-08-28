@@ -1,0 +1,109 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#app {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #2c3e50;
+}
+
+#pdf-upload {
+    border: 2px dashed #3498db;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    transition: background-color 0.3s ease;
+}
+
+#pdf-upload:hover {
+    background-color: #ecf0f1;
+}
+
+#pdf-file {
+    display: none;
+}
+
+label[for="pdf-file"] {
+    cursor: pointer;
+    color: #3498db;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+#file-info {
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+#open-pdf {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+#open-pdf:hover {
+    background-color: #27ae60;
+}
+
+#pdf-viewer {
+    min-height: 400px;
+    border: 1px solid #bdc3c7;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#cancel-pdf {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 1rem;
+    margin-left: 0.5rem;
+}
+
+#cancel-pdf:hover {
+    background-color: #c0392b;
+}
+
+#pdf-preview {
+    max-width: 300px;
+    margin: 1rem auto;
+    border: 1px solid #bdc3c7;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#pdf-preview canvas {
+    width: 100%;
+    height: auto;
+}

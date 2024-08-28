@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Reader</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>PDF Reader</h1>
+        <div id="pdf-upload">
+            <input type="file" id="pdf-file" accept=".pdf" style="display: none;">
+            <label for="pdf-file">Choose a PDF file or drag it here</label>
+        </div>
+        <div id="file-info"></div>
+        <button id="open-pdf" style="display: none;">Open PDF</button>
+        <button id="cancel-pdf" style="display: none;">Cancel</button>
+        <div id="pdf-preview"></div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
+
