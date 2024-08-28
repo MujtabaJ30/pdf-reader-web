@@ -29,11 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pdfFile.click();
     });
 
-    pdfFile.addEventListener('change', (e) => {
-        if (e.target.files.length) {
-            handleFileSelection(e.target.files[0]);
-        }
-    });
+    pdfFile.addEventListener('input', handleFileSelection);
 
     openPdfButton.addEventListener('click', openPDF);
 
@@ -51,22 +47,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function handleFileSelection(file) {
-        selectedFile = file;
-        fileInfo.textContent = `Selected file: ${file.name}`;
-        openPdfButton.style.display = 'inline-block';
-        cancelPdfButton.style.display = 'inline-block';
-        loadPDFPreview(file);
+    function handleFileSelection(event) {
+        const file = event.target.files[0];
+        if (file && file.type === 'application/pdf') {
+            selectedFile = file;
+            fileInfo.textContent = `Selected: ${file.name}`;
+            openPdfButton.style.display = 'inline-block';
+            cancelPdfButton.style.display = 'inline-block';
+            
+            // Generate preview
+            generatePreview(file);
+
+            // Clear the file input to ensure it triggers on subsequent selections of the same file
+            event.target.value = '';
+        } else {
+            fileInfo.textContent = 'Please select a valid PDF file.';
+            openPdfButton.style.display = 'none';
+            cancelPdfButton.style.display = 'none';
+            selectedFile = null;
+            clearPreview();
+        }
     }
 
-    function loadPDFPreview(file) {
+    function generatePreview(file) {
         const reader = new FileReader();
         reader.onload = function(e) {
             const typedarray = new Uint8Array(e.target.result);
-            pdfjsLib.getDocument(typedarray).promise.then(pdf => {
-                pdf.getPage(1).then(page => {
-                    const scale = 0.5;
-                    const viewport = page.getViewport({ scale });
+
+            pdfjsLib.getDocument(typedarray).promise.then(function(pdf) {
+                pdf.getPage(1).then(function(page) {
+                    const scale = 1.5;
+                    const viewport = page.getViewport({ scale: scale });
+
                     const canvas = document.createElement('canvas');
                     const context = canvas.getContext('2d');
                     canvas.height = viewport.height;
@@ -77,13 +89,20 @@ document.addEventListener('DOMContentLoaded', () => {
                         viewport: viewport
                     };
 
-                    pdfPreview.innerHTML = '';
-                    pdfPreview.appendChild(canvas);
                     page.render(renderContext);
+
+                    const previewArea = document.getElementById('pdf-preview');
+                    previewArea.innerHTML = '';
+                    previewArea.appendChild(canvas);
                 });
             });
         };
         reader.readAsArrayBuffer(file);
+    }
+
+    function clearPreview() {
+        const previewArea = document.getElementById('pdf-preview');
+        previewArea.innerHTML = '';
     }
 
     function openPDF() {
